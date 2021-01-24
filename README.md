@@ -7,15 +7,16 @@ this is draft material.
 
 papers used 
 
-1 https://hal.archives-ouvertes.fr/hal-01640325/document
-2 https://www.researchgate.net/publication/245293243_An_Application_of_the_Peaks_Over_Threshold_Method_to_Predict_Extremes_of_Significant_Wave_Height
-3 https://www.researchgate.net/publication/334717291_Robust_Anomaly_Detection_for_Multivariate_Time_Series_through_Stochastic_Recurrent_Neural_Network
+1. https://hal.archives-ouvertes.fr/hal-01640325/document
+2. https://www.researchgate.net/publication/245293243_An_Application_of_the_Peaks_Over_Threshold_Method_to_Predict_Extremes_of_Significant_Wave_Height
+3. https://www.researchgate.net/publication/334717291_Robust_Anomaly_Detection_for_Multivariate_Time_Series_through_Stochastic_Recurrent_Neural_Network
+4. https://www.hindawi.com/journals/complexity/2020/8846608/
 
 approach
 
-1. haircut data. use high empirical quantile above 90 percent. use loss data from my mtad-tf repository. this haircut follows GPD. see all three papers discussing initial haircut threshold
+1. haircut data. use high empirical quantile above 90 percent. use loss data from my mtad-tf repository - implementation of papaer 4. this haircut follows GPD. see all four papers discussing initial haircut threshold
 2. GPD maximum likelihood estimation method provides log likelihood to maximize. see paper 1 on page 3. tensorflow is used to minimize negative of that. this gives us estimates for sigma and gamma for GPD
-3. use equation 1 from paper 1 to calculate threshold. decide on probability that values of distribution will not pass threshold. see paper 3 suggesting probability value
+3. use equation 1 from paper 1 to calculate threshold. decide on probability that values of distribution will not pass threshold. see paper 3 and 4 suggesting probability value
 
 steps
 
