@@ -37,7 +37,7 @@ def create_records(value_file, threshold, tfrecords_file):
         while i < value_array.shape[0]:
 
             if value_array[i] > threshold:
-                tf_example = example(value_array[i])
+                tf_example = example(value_array[i]-threshold)
                 writer.write(tf_example.SerializeToString())
                 record_count = record_count + 1
 

@@ -105,22 +105,16 @@ class POT(object):
 
     epsilon = tf.constant(1e-14, dtype=tf.float32)
 
+    #self._sigma = tf.compat.v1.get_variable(initializer=tf.random_uniform_initializer(minval=0.167, maxval=0.169), shape=[], trainable=True, name='sigma')
     self._sigma = tf.compat.v1.get_variable(initializer=tf.random_uniform_initializer(minval=1, maxval=2), shape=[], trainable=True, name='sigma')
+    #self._gamma = tf.compat.v1.get_variable(initializer=tf.random_uniform_initializer(minval=-0.009, maxval=-0.01), shape=[], trainable=True, name='gamma')
     self._gamma = tf.compat.v1.get_variable(initializer=tf.random_uniform_initializer(minval=1, maxval=2), shape=[], trainable=True, name='gamma')
  
     Nt = tf.cast(tf.size(exceedances), dtype=tf.float32)
 
-    #self._sigma = tf.Print(_sigma, [_sigma], "sigma", summarize=8)
-    #self._gamma = tf.Print(_gamma, [_gamma], "gamma", summarize=8)
-
     self._loss = -(-Nt*tf.math.log(self._sigma+epsilon)-(1 + 1/(self._gamma+epsilon))*tf.reduce_sum(tf.math.log(1+(self._gamma/(self._sigma+epsilon))*exceedances)))
-    #self._loss = -(-Nt*tf.math.log(self._sigma+epsilon)-(1 + 1/(self._gamma+epsilon)))
-
-    #q = Nt / n
 
     self._threshold = t + (self._sigma / (self._gamma+epsilon)) * (tf.math.pow((q * n) / Nt, -self._gamma) - 1)   
-
-    #self._threshold = tf.Print(_threshold, [_threshold], "threshold", summarize=8)
 
   @property
   def loss(self):

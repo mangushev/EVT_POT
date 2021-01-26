@@ -28,17 +28,21 @@ def make_input_fn(filename, is_training, drop_reminder):
       return example
 
     dataset = tf.data.TFRecordDataset(
-      filename, buffer_size=FLAGS.dataset_reader_buffer_size)
+      filename) #, buffer_size=FLAGS.dataset_reader_buffer_size)
     
     if is_training:
       dataset = dataset.repeat()
       #dataset = dataset.shuffle(buffer_size=FLAGS.shuffle_buffer_size, reshuffle_each_iteration=True)
 
-    dataset = dataset.apply(
-      tf.contrib.data.map_and_batch(
-        parser, batch_size=params["batch_size"],
-        num_parallel_batches=8,
-        drop_remainder=drop_reminder))
+    dataset = dataset.map(parser)
+
+    dataset = dataset.batch(params["batch_size"])
+
+    #dataset = dataset.apply(
+    #  tf.contrib.data.map_and_batch(
+    #    parser, batch_size=params["batch_size"]
+    #    num_parallel_batches=8,
+    #    drop_remainder=drop_reminder))
     return dataset
 
   return input_fn
@@ -68,6 +72,11 @@ def model_fn_builder(init_checkpoint, learning_rate, num_train_steps, use_tpu):
       else:
         gradients = grads
 
+      #calculated_learning_rate = tf.compat.v1.train.exponential_decay(learning_rate, tf.compat.v1.train.get_global_step()+1, 100, 0.93, staircase=False)
+
+      #effective_learning_rate = tf.Print(calculated_learning_rate, [calculated_learning_rate], "Calculated learning rate")
+
+      #optimizer = tf.compat.v1.train.AdamOptimizer(learning_rate=effective_learning_rate)
       optimizer = tf.compat.v1.train.AdamOptimizer(learning_rate=learning_rate)
 
       train_op = optimizer.apply_gradients(zip(gradients, tvars), global_step=tf.compat.v1.train.get_global_step())
