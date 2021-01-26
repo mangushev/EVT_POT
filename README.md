@@ -29,7 +29,7 @@ python quantile.py --value_path=RMS_loss.csv --quantile=0.98
 2. Create tfrecords file. RMS_loss.csv values are cut with recentile value 
 python prepare_data.py --files_path=RMS_loss.csv --tfrecords_file=gs://anomaly_detection/pot/data/train/{}-0.98.tfrecords --t=0.9203352009999999
 
-3. Train model . Minimize log likelihood , use negative of that formula
+3. Train model . Minimize log likelihood , use negative of that formula. Batch size must be the same as whole input tfrecords file since it is extected by log likelihood formula
 python training.py --action=TRAIN --train_file=gs://anomaly_detection/pot/data/train/loss_machine-1-1-0.98.tfrecords --output_dir=gs://anomaly_detection/pot/output/machine-1-1.0.98 --n=28378 --t=0.9203352009999999 --q=0.001 --num_train_steps=2000 --batch_size=568 --clip_gradients=1.0 --learning_rate=0.001
 
 4. Extract estimates of gamma, sigma and calculate threshold at q probability
