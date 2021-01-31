@@ -1,7 +1,7 @@
 # EVT_POT
 Peak Over Threshold POT estimator
 
-It seems that Peak Over Threshold has become popular way to calculate thresholds for anomalies. Having some distribution, high empirical quantile can be used to cut samples which are at the tail of the distribution. These values, above this quantile follow GPD generalized Pareto distribution. GPD parameters sigma and gamma can be estimated and used to calculate threshold for some low probability that any sample gets above calculated threshold
+Peak Over Threshold has become popular way to calculate thresholds for anomalies. Having some distribution, high empirical quantile can be used to cut samples which are at the tail of the distribution. These values, above this quantile follow GPD generalized Pareto distribution. GPD parameters sigma and gamma can be estimated and used to calculate threshold for some low probability of sample breaching calculated threshold. literature suggests probability value of 0.001 or 0.0001. Practically, 0.005 can be another option. Also, i think this threshold can be used an initial point and can be improved by trying a bit lower or higher threshold with some script. Quartile value is something above 90%. I used 98%
 
 papers used 
 
